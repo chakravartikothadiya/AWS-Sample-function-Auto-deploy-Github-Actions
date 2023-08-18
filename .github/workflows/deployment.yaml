@@ -26,7 +26,7 @@ jobs:
         run: |
           mkdir deployment
           cp lamda-func-one.py deployment/
-          cp -r /usr/local/lib/python3.x/site-packages deployment/
+          cp -r /usr/local/lib/python3.11/site-packages deployment/
           cd deployment
           zip -r lambda_function.zip .
           echo "ZIP file created successfully"
