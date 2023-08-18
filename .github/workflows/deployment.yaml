@@ -15,7 +15,12 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.11
+          python-version: 3.8
+
+      - name: Create and activate virtual environment
+        run: |
+          python -m venv venv
+          source venv/bin/activate
 
       - name: Install dependencies
         run: |
@@ -26,7 +31,7 @@ jobs:
         run: |
           mkdir deployment
           cp lamda-func-one.py deployment/
-          cp -r /usr/local/lib/python3.11/site-packages deployment/
+          cp -r venv/lib/python3.8/site-packages deployment/
           cd deployment
           zip -r lambda_function.zip .
           echo "ZIP file created successfully"
