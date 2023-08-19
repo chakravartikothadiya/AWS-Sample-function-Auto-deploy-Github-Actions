@@ -47,6 +47,17 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: us-east-2 # Replace with your desired region
 
+      - name: Set Lambda environment variables
+        run: |
+          VARIABLES=$(cat env_var.json | jq -r 'to_entries | map("\(.key)=\(.value)") | join(",")')
+          aws lambda update-function-configuration \
+            --function-name myFirstFuncTest \
+            --environment "Variables={{{VARIABLES}}}"
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: us-east-2 # Replace with your desired region
+
       - name: Done with the flow
         run: |
           # Your AWS CLI command here
