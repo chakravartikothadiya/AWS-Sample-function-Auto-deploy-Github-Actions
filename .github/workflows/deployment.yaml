@@ -52,7 +52,7 @@ jobs:
           VARIABLES=$(cat env_var.json | jq -r 'to_entries | map("\(.key)=\(.value)") | join(",")')
           aws lambda update-function-configuration \
             --function-name myFirstFuncTest \
-            --environment "Variables={{{VARIABLES}}}"
+            --environment "Variables={$VARIABLES}"
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
