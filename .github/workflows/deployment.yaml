@@ -50,6 +50,7 @@ jobs:
       - name: Set Lambda environment variables
         run: |
           VARIABLES=$(cat env_var.json | jq -r 'to_entries | map("\(.key)=\(.value)") | join(",")')
+          sleep 30
           aws lambda update-function-configuration \
             --function-name myFirstFuncTest \
             --environment "Variables={$VARIABLES}"
